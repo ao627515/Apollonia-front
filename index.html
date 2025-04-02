@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apollonia - Cabinet Dentaire</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Apollonia</div>
+        <ul class="nav-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="employees.html">Employés</a></li>
+          <li><a href="services.html">Services</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Cabinet Dentaire Apollonia</h1>
+      <p>Bienvenue sur l'application de gestion du Cabinet Dentaire Apollonia. Cette plateforme vous permet de gérer
+        efficacement les employés et les services du cabinet.</p>
+      <div>
+        <a href="employees.html" class="btn">Gestion des Employés</a>
+        <a href="services.html" class="btn" style="margin-left: 10px;">Gestion des Services</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: 2rem;">Fonctionnalités</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">👥</div>
+          <h3>Gestion des Employés</h3>
+          <p>Ajoutez, modifiez, supprimez et consultez les informations de tous les employés du cabinet.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🏥</div>
+          <h3>Gestion des Services</h3>
+          <p>Gérez efficacement les différents services proposés par le cabinet dentaire.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3>Affectation</h3>
+          <p>Affectez facilement les employés aux différents services disponibles au sein du cabinet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Cabinet Dentaire Apollonia. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Script pour vérifier la connectivité avec l'API
+    document.addEventListener('DOMContentLoaded', () => {
+      checkApiConnection();
+    });
+
+    async function checkApiConnection() {
+      try {
+        const response = await fetch('http://127.0.0.1:3000/departments');
+        if (!response.ok) {
+          throw new Error('Problème de connexion à l\'API');
+        }
+        console.log('Connexion à l\'API établie avec succès');
+      } catch (error) {
+        console.error('Erreur de connexion à l\'API:', error);
+        // On pourrait ajouter une notification visuelle ici
+      }
+    }
+  </script>
+</body>
+
+</html>
