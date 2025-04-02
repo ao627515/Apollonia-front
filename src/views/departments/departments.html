@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apollonia - Gestion des Services</title>
+  <link rel="stylesheet" href="./departments.css">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Apollonia</div>
+        <ul class="nav-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="employees.html">Employés</a></li>
+          <li><a href="services.html">Services</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-title">
+    <div class="container">
+      <h1>Gestion des Services</h1>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h2>Liste des Services</h2>
+          <button id="addServiceBtn" class="btn btn-success">Ajouter un Service</button>
+        </div>
+        <div id="alertContainer"></div>
+        <table id="servicesTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nom du Service</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="servicesTableBody">
+            <!-- Les services seront chargés dynamiquement ici -->
+            <tr>
+              <td colspan="3">Chargement des services...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal pour ajouter/modifier un service -->
+  <div id="serviceModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modalTitle">Ajouter un Service</h2>
+      <form id="serviceForm">
+        <input type="hidden" id="serviceId">
+        <div class="form-group">
+          <label for="serviceName">Nom du Service</label>
+          <input type="text" id="serviceName" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success">Enregistrer</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal de confirmation de suppression -->
+  <div id="confirmDeleteModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Confirmer la suppression</h2>
+      <p>Êtes-vous sûr de vouloir supprimer ce service ?</p>
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+        <button id="cancelDeleteBtn" class="btn">Annuler</button>
+        <button id="confirmDeleteBtn" class="btn btn-danger">Supprimer</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Cabinet Dentaire Apollonia. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script src="./departments.js" type="module"></script>
+</body>
+
+</html>

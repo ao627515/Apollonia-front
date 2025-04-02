@@ -1,4 +1,4 @@
-import apiService from './ApiService';
+import apiService from './ApiService.js';
 
 class DepartmentsService {
   constructor() {
@@ -7,23 +7,23 @@ class DepartmentsService {
   }
   // Méthodes pour la gestion des services (departments)
   async getAllDepartments() {
-    return this.request(`${this._apiService.baseUrl}${this._endpoint.departments}`);
+    return this._apiService.request(`${this._apiService.baseUrl}${this._endpoint}`);
   }
 
   async getDepartmentById(id) {
-    return this._apiService.request(`${this._apiService.baseUrl}${this._endpoint.departments}/${id}`);
+    return this._apiService.request(`${this._apiService.baseUrl}${this._endpoint}/${id}`);
   }
 
   async createDepartment(department) {
-    return this._apiService.request(`${this._apiService.baseUrl}${this._endpoint.departments}`, 'POST', department);
+    return this._apiService.request(`${this._apiService.baseUrl}${this._endpoint}`, 'POST', department);
   }
 
   async updateDepartment(id, department) {
-    return this._apiService.request(`${this._apiService.baseUrl}${this._endpoint.departments}/${id}`, 'PUT', department);
+    return this._apiService.request(`${this._apiService.baseUrl}${this._endpoint}/${id}`, 'PUT', department);
   }
 
   async deleteDepartment(id) {
-    return this._apiService.request(`${this._apiService.baseUrl}${this._endpoint.departments}/${id}`, 'DELETE');
+    return this._apiService.request(`${this._apiService.baseUrl}${this._endpoint}/${id}`, 'DELETE');
   }
 }
 
