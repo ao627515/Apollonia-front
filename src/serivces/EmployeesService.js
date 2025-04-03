@@ -9,23 +9,23 @@ class EmployeesService {
 
   // Méthodes pour la gestion des employés
   async getAllEmployees() {
-    return this.request(`${this._apiService.baseUrl}${this._endpoint.employees}`);
+    return this._apiService.request(`${this._apiService.baseUrl}${this._endpoint}`);
   }
 
   async getEmployeeById(id) {
-    return this.request(`${this._apiService.baseUrl}${this._endpoint.employees}/${id}`);
+    return this._apiService.request(`${this._apiService.baseUrl}${this._endpoint}/${id}`);
   }
 
   async createEmployee(employee) {
-    return this.request(`${this._apiService.baseUrl}${this._endpoint.employees}`, 'POST', employee);
+    return this._apiService.request(`${this._apiService.baseUrl}${this._endpoint}`, 'POST', employee);
   }
 
   async updateEmployee(id, employee) {
-    return this.request(`${this._apiService.baseUrl}${this._endpoint.employees}/${id}`, 'PUT', employee);
+    return this._apiService.request(`${this._apiService.baseUrl}${this._endpoint}/${id}`, 'PUT', employee);
   }
 
   async deleteEmployee(id) {
-    return this.request(`${this._apiService.baseUrl}${this._endpoint.employees}/${id}`, 'DELETE');
+    return this._apiService.request(`${this._apiService.baseUrl}${this._endpoint}/${id}`, 'DELETE');
   }
 
 }

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apollonia - Gestion des Employés</title>
+  <link rel="stylesheet" href="./employess.css">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Apollonia</div>
+        <ul class="nav-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="employees.html">Employés</a></li>
+          <li><a href="services.html">Services</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-title">
+    <div class="container">
+      <h1>Gestion des Employés</h1>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h2>Liste des Employés</h2>
+          <button id="addEmployeeBtn" class="btn btn-success">Ajouter un Employé</button>
+        </div>
+        <div id="alertContainer"></div>
+        <table id="employeesTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Service</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="employeesTableBody">
+            <!-- Les employés seront chargés dynamiquement ici -->
+            <tr>
+              <td colspan="5">Chargement des employés...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal pour ajouter/modifier un employé -->
+  <div id="employeeModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modalTitle">Ajouter un Employé</h2>
+      <form id="employeeForm">
+        <input type="hidden" id="employeeId">
+        <div class="form-group">
+          <label for="firstname">Prénom</label>
+          <input type="text" id="firstname" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="lastname">Nom</label>
+          <input type="text" id="lastname" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="departmentId">Service</label>
+          <select id="departmentId" class="form-control" required>
+            <option value="">Sélectionnez un service</option>
+            <!-- Les services seront chargés dynamiquement ici -->
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success">Enregistrer</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal de confirmation de suppression -->
+  <div id="confirmDeleteModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Confirmer la suppression</h2>
+      <p>Êtes-vous sûr de vouloir supprimer cet employé ?</p>
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+        <button id="cancelDeleteBtn" class="btn">Annuler</button>
+        <button id="confirmDeleteBtn" class="btn btn-danger">Supprimer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal pour consulter les détails d'un employé -->
+  <div id="viewEmployeeModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Détails de l'Employé</h2>
+      <div id="employeeDetails">
+        <!-- Les détails de l'employé seront chargés dynamiquement ici -->
+      </div>
+      <div style="margin-top: 20px; text-align: right;">
+        <button id="closeViewBtn" class="btn">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Cabinet Dentaire Apollonia. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script src="./employees.js" type="module"> </script>
+</body>
+
+</html>

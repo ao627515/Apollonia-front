@@ -2,18 +2,22 @@ import Department from "./Departement.js";
 
 class Employee {
   constructor({ _id = undefined, firstname, lastname, department }) {
-    this.id = _id;
+    this._id = _id;
     this.firstname = firstname;
     this.lastname = lastname;
-    this.department = Department.toModel(department);
+    this.department = department instanceof Object ? Department.toModel(department) : department;
   }
 
   toJSON() {
     return {
       firstname: this.firstname,
       lastname: this.lastname,
-      department: this.department._id
+      department: this.department
     }
+  }
+
+  getDepartment() {
+    return this.department instanceof Department ? this.department : this.department._id;
   }
 
   static toModel(data) {

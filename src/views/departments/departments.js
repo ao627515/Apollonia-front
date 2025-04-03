@@ -70,7 +70,7 @@ class DepartmentManager {
         }
       }).filter(Boolean); // Supprime les valeurs `null`
 
-      console.log(services);
+      // console.log(services);
 
       this.displayServices(services);
     } catch (error) {
