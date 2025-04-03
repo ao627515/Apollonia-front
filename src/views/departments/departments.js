@@ -113,8 +113,9 @@ class DepartmentManager {
       this.modalTitle.textContent = 'Modifier le Service';
       try {
         const service = await this.deparmentService.getDepartmentById(id);
-        if (service)
+        if (!service)
           throw new Error('Service non trouvé');
+
         this.serviceId.value = service._id;
         this.serviceName.value = service.name;
       } catch (error) {
