@@ -112,13 +112,10 @@ class DepartmentManager {
       // Mode édition
       this.modalTitle.textContent = 'Modifier le Service';
       try {
-        const response = await fetch(`${this.apiBaseUrl}/departments/${id}`);
-        if (!response.ok) {
+        const service = await this.deparmentService.getDepartmentById(id);
+        if (service)
           throw new Error('Service non trouvé');
-        }
-
-        const service = await response.json();
-        this.serviceId.value = service.id;
+        this.serviceId.value = service._id;
         this.serviceName.value = service.name;
       } catch (error) {
         this.showAlert('Erreur: ' + error.message, 'danger');
@@ -143,24 +140,11 @@ class DepartmentManager {
     }
 
     try {
-      let url = `${this.apiBaseUrl}/departments`;
-      let method = 'POST';
 
       if (id) {
-        url = `${url}/${id}`;
-        method = 'PUT';
-      }
-
-      const response = await fetch(url, {
-        method: method,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name })
-      });
-
-      if (!response.ok) {
-        throw new Error('Erreur lors de l\'enregistrement du service');
+        this.deparmentService.updateDepartment(id, { name });
+      } else {
+        this.deparmentService.createDepartment({ name })
       }
 
       this.serviceModal.style.display = 'none';
