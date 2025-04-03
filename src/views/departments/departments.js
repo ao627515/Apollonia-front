@@ -165,11 +165,9 @@ class DepartmentManager {
     if (!this.serviceToDelete) return;
 
     try {
-      const response = await fetch(`${this.apiBaseUrl}/departments/${this.serviceToDelete}`, {
-        method: 'DELETE'
-      });
+      const service = this.deparmentService.deleteDepartment(this.serviceToDelete);
 
-      if (!response.ok) {
+      if (!service) {
         throw new Error('Erreur lors de la suppression du service');
       }
 
