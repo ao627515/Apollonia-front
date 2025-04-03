@@ -1,9 +1,10 @@
 // Classe pour la gestion des services
+import Department from "../../models/Departement.js";
 import departmentsService from "../../serivces/DepartmentsService.js";
 
 class DepartmentManager {
   constructor() {
-    this.deparmentService = departmentsService;
+    this.departmentService = departmentsService;
     this.serviceModal = document.getElementById('serviceModal');
     this.confirmDeleteModal = document.getElementById('confirmDeleteModal');
     this.serviceForm = document.getElementById('serviceForm');
@@ -59,12 +60,24 @@ class DepartmentManager {
 
   async loadServices() {
     try {
-      const services = await this.deparmentService.getAllDepartments() ?? [];
+      const servicesData = await this.departmentService.getAllDepartments();
+      const services = (servicesData ?? []).map(service => {
+        try {
+          return Department.toModel(service);
+        } catch (error) {
+          console.warn(`Erreur de conversion pour le service: ${JSON.stringify(service)}`, error);
+          return null; // Ignore les services invalides
+        }
+      }).filter(Boolean); // Supprime les valeurs `null`
+
+      console.log(services);
+
       this.displayServices(services);
     } catch (error) {
-      this.showAlert('Erreur: ' + error.message, 'danger');
-      console.error('Erreur:', error);
+      this.showAlert('Erreur lors du chargement des services: ' + error.message, 'danger');
+      console.error('Erreur de chargement des services:', error);
     }
+
   }
 
   displayServices(services) {
@@ -106,30 +119,53 @@ class DepartmentManager {
   }
 
   async openServiceModal(id = null) {
-    this.serviceForm.reset();
+    this.serviceForm.reset(); // Réinitialise le formulaire
 
     if (id) {
       // Mode édition
       this.modalTitle.textContent = 'Modifier le Service';
-      try {
-        const service = await this.deparmentService.getDepartmentById(id);
-        if (!service)
-          throw new Error('Service non trouvé');
 
-        this.serviceId.value = service._id;
-        this.serviceName.value = service.name;
+      try {
+        const serviceData = await this.departmentService.getDepartmentById(id);
+        if (!serviceData) {
+          throw new Error('Service non trouvé');
+        }
+
+        const service = Department.toModel(serviceData);
+        this.fillServiceForm(service);
       } catch (error) {
-        this.showAlert('Erreur: ' + error.message, 'danger');
-        return;
+        this.showAlert('Erreur lors du chargement du service: ' + error.message, 'danger');
+        console.error('Erreur de chargement du service:', error);
+        return; // Empêche l'affichage du modal en cas d'erreur
       }
     } else {
       // Mode ajout
       this.modalTitle.textContent = 'Ajouter un Service';
-      this.serviceId.value = '';
+      this.clearServiceForm();
     }
 
+    this.showModal();
+  }
+
+
+  fillServiceForm(service) {
+    this.serviceId.value = service._id;
+    this.serviceName.value = service.name;
+  }
+
+  clearServiceForm() {
+    this.serviceId.value = '';
+    this.serviceName.value = '';
+  }
+
+  showModal() {
     this.serviceModal.style.display = 'block';
   }
+
+  hidenModal() {
+    this.serviceModal.style.display = 'none';
+  }
+
 
   async saveService() {
     const id = this.serviceId.value;
@@ -143,18 +179,20 @@ class DepartmentManager {
     try {
 
       if (id) {
-        this.deparmentService.updateDepartment(id, { name });
+        this.departmentService.updateDepartment(id, { name });
       } else {
-        this.deparmentService.createDepartment({ name })
+        this.departmentService.createDepartment({ name })
       }
 
-      this.serviceModal.style.display = 'none';
+      this.hidenModal();
       this.showAlert(id ? 'Service modifié avec succès' : 'Service ajouté avec succès', 'success');
       this.loadServices();
     } catch (error) {
       this.showAlert('Erreur: ' + error.message, 'danger');
     }
   }
+
+
 
   confirmDelete(id) {
     this.serviceToDelete = id;
@@ -165,7 +203,7 @@ class DepartmentManager {
     if (!this.serviceToDelete) return;
 
     try {
-      const service = this.deparmentService.deleteDepartment(this.serviceToDelete);
+      const service = this.departmentService.deleteDepartment(this.serviceToDelete);
 
       if (!service) {
         throw new Error('Erreur lors de la suppression du service');
